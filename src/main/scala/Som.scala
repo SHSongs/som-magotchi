@@ -1,0 +1,1 @@
+case class Som(name: String, hp: Int, houses: List[House] = List())
