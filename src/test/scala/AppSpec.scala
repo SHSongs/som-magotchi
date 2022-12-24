@@ -6,12 +6,12 @@ object AppSpec extends ZIOSpecDefault {
     test("test") {
       for {
         _ <- ZIO.unit
-        _ <- ZIO.serviceWithZIO[InMemorySom](_.createSom("good"))
-        a <- ZIO.serviceWithZIO[InMemorySom](_.getSom)
+        _ <- ZIO.serviceWithZIO[SomRepositoryInMemory](_.createSom("good"))
+        a <- ZIO.serviceWithZIO[SomRepositoryInMemory](_.getSom)
 
-        _ <- ZIO.serviceWithZIO[InMemorySom](_.createHouse)
-        h <- ZIO.serviceWithZIO[InMemorySom](_.getSom.map(_.houses))
-        hp <- ZIO.serviceWithZIO[InMemorySom](_.getSom.map(_.hp))
+        _ <- ZIO.serviceWithZIO[SomRepositoryInMemory](_.createHouse)
+        h <- ZIO.serviceWithZIO[SomRepositoryInMemory](_.getSom.map(_.houses))
+        hp <- ZIO.serviceWithZIO[SomRepositoryInMemory](_.getSom.map(_.hp))
         _ <- Console.print(hp)
 
         questionVector <- TestConsole.output
@@ -22,24 +22,24 @@ object AppSpec extends ZIOSpecDefault {
     test("fail build") {
       for {
         _ <- ZIO.unit
-        _ <- ZIO.serviceWithZIO[InMemorySom](_.createSom("good"))
-        a <- ZIO.serviceWithZIO[InMemorySom](_.getSom)
+        _ <- ZIO.serviceWithZIO[SomRepositoryInMemory](_.createSom("good"))
+        a <- ZIO.serviceWithZIO[SomRepositoryInMemory](_.getSom)
         _ <- Console.printLine(a.name)
 
-        hp <- ZIO.serviceWithZIO[InMemorySom](_.getSom.map(_.hp))
+        hp <- ZIO.serviceWithZIO[SomRepositoryInMemory](_.getSom.map(_.hp))
         _ <- Console.printLine(hp)
 
-        _ <- ZIO.serviceWithZIO[InMemorySom](_.createHouse)
-        _ <- ZIO.serviceWithZIO[InMemorySom](_.createHouse)
-        _ <- ZIO.serviceWithZIO[InMemorySom](_.createHouse)
-        _ <- ZIO.serviceWithZIO[InMemorySom](_.createHouse)
-        _ <- ZIO.serviceWithZIO[InMemorySom](_.createHouse)
-        _ <- ZIO.serviceWithZIO[InMemorySom](_.createHouse)
-        _ <- ZIO.serviceWithZIO[InMemorySom](_.createHouse)
-        _ <- ZIO.serviceWithZIO[InMemorySom](_.createHouse)
-        _ <- ZIO.serviceWithZIO[InMemorySom](_.createHouse)
-        _ <- ZIO.serviceWithZIO[InMemorySom](_.createHouse)
+        _ <- ZIO.serviceWithZIO[SomRepositoryInMemory](_.createHouse)
+        _ <- ZIO.serviceWithZIO[SomRepositoryInMemory](_.createHouse)
+        _ <- ZIO.serviceWithZIO[SomRepositoryInMemory](_.createHouse)
+        _ <- ZIO.serviceWithZIO[SomRepositoryInMemory](_.createHouse)
+        _ <- ZIO.serviceWithZIO[SomRepositoryInMemory](_.createHouse)
+        _ <- ZIO.serviceWithZIO[SomRepositoryInMemory](_.createHouse)
+        _ <- ZIO.serviceWithZIO[SomRepositoryInMemory](_.createHouse)
+        _ <- ZIO.serviceWithZIO[SomRepositoryInMemory](_.createHouse)
+        _ <- ZIO.serviceWithZIO[SomRepositoryInMemory](_.createHouse)
+        _ <- ZIO.serviceWithZIO[SomRepositoryInMemory](_.createHouse)
       } yield assertCompletes
     } @@ TestAspect.failing
-  ).provide(InMemorySom.layer)
+  ).provide(SomRepositoryInMemory.layer)
 }

@@ -4,6 +4,7 @@ object House {
   trait FailReason
   object FailReason {
     case object LowOnHP extends FailReason
+    case object Unknown extends FailReason
   }
 
   def build(currentHP: Int, requiredHP: Int): Either[FailReason, House] = {
