@@ -42,7 +42,7 @@ case class InMemorySom(som: Ref[Som]) extends SomDo with HouseDo {
 object InMemorySom {
   val layer: ZLayer[Any, Nothing, InMemorySom] = ZLayer {
     for {
-      ref <- Ref.make(Som(name = "good player", hp = 100))
+      ref <- Ref.make(Som(name = "default", hp = 100))
     } yield new InMemorySom(ref)
   }
 }
@@ -54,20 +54,6 @@ object Main extends ZIOAppDefault {
     _ <- ZIO.serviceWithZIO[InMemorySom](_.createSom("good"))
     a <- ZIO.serviceWithZIO[InMemorySom](_.getSom)
     _ <- Console.printLine(a.name)
-
-    _ <- ZIO.serviceWithZIO[InMemorySom](_.createHouse)
-    _ <- ZIO.serviceWithZIO[InMemorySom](_.createHouse)
-    h <- ZIO.serviceWithZIO[InMemorySom](_.getSom.map(_.houses))
-    _ <- Console.printLine(h)
-    hp <- ZIO.serviceWithZIO[InMemorySom](_.getSom.map(_.hp))
-    _ <- Console.printLine(hp)
-
-    _ <- ZIO.serviceWithZIO[InMemorySom](_.createHouse)
-    _ <- ZIO.serviceWithZIO[InMemorySom](_.createHouse)
-    h <- ZIO.serviceWithZIO[InMemorySom](_.getSom.map(_.houses))
-    _ <- Console.printLine(h)
-    hp <- ZIO.serviceWithZIO[InMemorySom](_.getSom.map(_.hp))
-    _ <- Console.printLine(hp)
 
     _ <- ZIO.serviceWithZIO[InMemorySom](_.createHouse)
     _ <- ZIO.serviceWithZIO[InMemorySom](_.createHouse)
